@@ -17,12 +17,12 @@ export class WorldResolver {
     if (country != null) {
       return country;
     } else {
-      throw new Error("Country not found...");
+      throw new Error("Code not found...");
     }
   }
 
   @Query(() => [WorldEntity])
-  async getCountryByContinent(
+  async getAllCountryFromContinent(
     @Arg("continent") continent: string
   ): Promise<WorldEntity[]> {
     const country = await AppDataSource.manager
@@ -31,7 +31,7 @@ export class WorldResolver {
     if (country != null) {
       return country;
     } else {
-      throw new Error("Country not found...");
+      throw new Error("Continent not found...");
     }
   }
 
