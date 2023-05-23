@@ -10,10 +10,24 @@ export class WorldResolver {
   }
 
   @Query(() => WorldEntity)
-  async getCountryCode(@Arg("code") code: string): Promise<WorldEntity> {
+  async getCountryByCode(@Arg("code") code: string): Promise<WorldEntity> {
     const country = await AppDataSource.manager
       .getRepository(WorldEntity)
       .findOneBy({ code });
+    if (country != null) {
+      return country;
+    } else {
+      throw new Error("Country not found...");
+    }
+  }
+
+  @Query(() => [WorldEntity])
+  async getCountryByContinent(
+    @Arg("continent") continent: string
+  ): Promise<WorldEntity[]> {
+    const country = await AppDataSource.manager
+      .getRepository(WorldEntity)
+      .findBy({ continent });
     if (country != null) {
       return country;
     } else {
